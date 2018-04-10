@@ -119,4 +119,5 @@ handleEvent e s =
     KeyPress key
       | key == "Esc" -> initialState
       | key == "D"   -> trace (show s) s
+      | key == "H"   -> trace (show "Hello World") s
     _ -> s
