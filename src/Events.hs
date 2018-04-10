@@ -113,10 +113,10 @@ import State
 -- World [Graphic (Rectangle 3.0 3.0) Magenta (8.0,4.0)] (RectangleTool Nothing) Orange
 
 -- 1) deconstructed the State -> World [Graphic] Tool ColourName
--- 2) list all possible input, or keep current state
--- 3) if input E -> Replace Tool to EllipseTool
--- 4) if input O -> Replace ColourName to Orange
-	
+-- 2) list all possible input, or keep current state - from toolKeyMap & colourKeyMap
+-- 3) if input in toolKeyMap, map to Tool
+-- 4) if input in colourKeyMap, map to ColorName
+
 handleEvent :: Event -> State -> State
 handleEvent e s =
   case e of
