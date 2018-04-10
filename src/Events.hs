@@ -112,7 +112,11 @@ import State
 -- >>> handleEvent (KeyPress "Backspace") state
 -- World [Graphic (Rectangle 3.0 3.0) Magenta (8.0,4.0)] (RectangleTool Nothing) Orange
 
--- TODO
+-- 1) deconstructed the State -> World [Graphic] Tool ColourName
+-- 2) list all possible input, or keep current state
+-- 3) if input E -> Replace Tool to EllipseTool
+-- 4) if input O -> Replace ColourName to Orange
+	
 handleEvent :: Event -> State -> State
 handleEvent e s =
   case e of
