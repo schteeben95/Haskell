@@ -116,6 +116,13 @@ import State
 -- 2) list all possible input, or keep current state - from toolKeyMap & colourKeyMap
 -- 3) if input in toolKeyMap, map to Tool
 -- 4) if input in colourKeyMap, map to ColorName
+-- 5) if the input is MousePress, we extract MouseButton and Point info 
+-- 6) based on different shapes, we should pass different kinds of info to drawNewGraphic
+-- 7) bind the drawNewGraphic to mouseRelease event
+-- 8) remember to re-order the polygon
+-- 9) remember to remove graphic
+
+-- The Tool input is Maybe Point | [Point]
 
 handleEvent :: Event -> State -> State
 handleEvent e s =
