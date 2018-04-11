@@ -110,3 +110,10 @@ f (x:xs) = f xs ++ map (x:) (f xs)
 
 meetTarget :: [Integer] -> Integer -> Bool
 meetTarget xs t = sum xs == t
+
+
+combinations' :: [Int] -> Int -> [[Int]]
+combinations' [] 0 = [[]]
+combinations' [] _ = []
+combinations' shape@(s:ss) n = 
+  [ x:xs | x <- [0..min s n] , xs <- combinations' ss (n-x) ] 
