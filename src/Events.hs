@@ -9,6 +9,9 @@ module Events where
 import CodeWorld hiding (trace)
 import Debug.Trace
 import State
+import Shape
+import ColourName
+import Data.Text
 
 --
 -- | initialState Test
@@ -128,7 +131,22 @@ handleEvent :: Event -> State -> State
 handleEvent e s =
   case e of
     KeyPress key
-      | key == "Esc" -> initialState
-      | key == "D"   -> trace (show s) s
-      | key == "H"   -> trace (show "Hello World") s
+      | key == "Esc"         -> initialState
+      | key == "D"           -> trace (show s) s
+      | key == "H"           -> trace (show "Hello World") s
+      | inMap toolKeyMap (unpack key) -> changeTool s (getValue toolKeyMap (unpack key))
+      | inMap colourKeyMap (unpack key) -> changeColorName s (getValue colourKeyMap (unpack key))
+      
     _ -> s
+
+inMap :: [(String, a)] -> String -> Bool
+inMap [] _ = False
+inMap (x:xs) key = if key == fst x
+                      then True
+                      else inMap xs key
+
+getValue :: [(String, a)] -> String -> a
+getValue [] _ = error "Not find"
+getValue (x:xs) key = if key == fst x
+                      then snd x
+                      else getValue xs key
