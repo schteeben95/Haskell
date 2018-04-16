@@ -20,3 +20,9 @@ initialColour = Black
 
 initialState :: State
 initialState = World [] initialTool initialColour
+
+changeTool :: State -> Tool -> State
+changeTool (World gs oldTool cn) newTool = World gs newTool cn
+
+changeColorName :: State -> ColourName -> State
+changeColorName (World gs tool oldColorName) newColourName = World gs tool newColourName
