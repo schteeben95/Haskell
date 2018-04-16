@@ -136,7 +136,7 @@ handleEvent e s =
       | key == "H"           -> trace (show "Hello World") s
       | inMap toolKeyMap (unpack key) -> changeTool s (getValue toolKeyMap (unpack key))
       | inMap colourKeyMap (unpack key) -> changeColorName s (getValue colourKeyMap (unpack key))
-      
+    MousePress _ point  -> drawNewGraphic s (Maybe point)
     _ -> s
 
 inMap :: [(String, a)] -> String -> Bool
@@ -150,3 +150,4 @@ getValue [] _ = error "Not find"
 getValue (x:xs) key = if key == fst x
                       then snd x
                       else getValue xs key
+
