@@ -38,11 +38,13 @@ drawState (World gs tool colour) =
 -- >>> drawNewGraphic (World [] (RectangleTool (Just (0, 0))) Orange) (Just (3, 7))
 -- World [Graphic (Rectangle 3.0 7.0) Orange (1.5,3.5)] (RectangleTool Nothing) Orange
 drawNewGraphic :: State -> Maybe Point -> State
-drawNewGraphic (World gs (PolygonTool ps) cn) Maybe np = World gs (PolygonTool ps ++ [np]) cn -- handle Polygon firstly
-drawNewGraphic (World gs (tool Nothing) cn) Maybe np = World gs (tool (Just np) cn            -- No old point
-drawNewGraphic (World gs (RectangleTool Maybe op) cn) Maybe np = World gs ++ [getRectangleGraphic op np cn] (tool Nothing) cn
-drawNewGraphic (World gs (EllipseTool Maybe op) cn) Maybe np = World gs ++ [getEllipseGraphic op np cn] (tool Nothing) cn
-drawNewGraphic (World gs (LineTool Maybe op) cn) Maybe np = World gs ++ [getLineGraphic op np cn] (tool Nothing) cn
+drawNewGraphic (World gs (PolygonTool ps) cn) (Just np) = World gs (PolygonTool (ps ++ [np])) cn -- handle Polygon firstly
+drawNewGraphic (World gs (RectangleTool Nothing) cn) np = World gs (RectangleTool np) cn            -- No old point
+drawNewGraphic (World gs (EllipseTool Nothing) cn) np = World gs (EllipseTool np) cn            -- No old point
+drawNewGraphic (World gs (LineTool Nothing) cn) np = World gs (LineTool np) cn            -- No old point
+drawNewGraphic (World gs (RectangleTool (Just op)) cn) (Just np) = World (gs ++ [getRectangleGraphic op np cn]) (RectangleTool Nothing) cn
+drawNewGraphic (World gs (EllipseTool (Just op)) cn) (Just np) = World (gs ++ [getEllipseGraphic op np cn]) (EllipseTool Nothing) cn
+drawNewGraphic (World gs (LineTool (Just op)) cn) (Just np) = World (gs ++ [getLineGraphic op np cn]) (LineTool Nothing) cn
 
 getNewGraphic :: State -> Maybe Point -> Maybe Graphic
 getNewGraphic = undefined -- TODO

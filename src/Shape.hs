@@ -26,12 +26,4 @@ toolKeyMap = [
   ("L", LineTool Nothing)
   ]
 
-shapeToolMap :: [(Tool, Shape)]
-toolKeyMap = [
-  (RectangleTool, Rectangle),
-  (EllipseTool, Ellipse),
-  (PolygonTool, Polygon),
-  (LineTool, Line)
-  ]
-
 type Side = Double
