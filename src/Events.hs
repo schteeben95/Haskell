@@ -12,6 +12,7 @@ import State
 import Shape
 import ColourName
 import Data.Text
+import View
 
 --
 -- | initialState Test
@@ -136,7 +137,7 @@ handleEvent e s =
       | key == "H"           -> trace (show "Hello World") s
       | inMap toolKeyMap (unpack key) -> changeTool s (getValue toolKeyMap (unpack key))
       | inMap colourKeyMap (unpack key) -> changeColorName s (getValue colourKeyMap (unpack key))
-    MousePress _ point  -> drawNewGraphic s (Maybe point)
+    MousePress _ point  -> drawNewGraphic s (Just point)
     _ -> s
 
 inMap :: [(String, a)] -> String -> Bool
