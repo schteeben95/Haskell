@@ -62,7 +62,7 @@ getPolygonGraphic :: [Point] -> ColourName -> Graphic
 getPolygonGraphic ps cn = Graphic (Polygon ps) cn (getShift ps)
 
 getWidthHeightShift :: Point -> Point -> (Side, Side, Point)
-getWidthHeightShift p1 p2 = (fst (getRectangleHeightWidth p1 p2), snd (getRectangleHeightWidth p1 p2), (getRectangleShift p1 p2))
+getWidthHeightShift p1 p2 = (fst (getRectangleHeightWidth p1 p2), snd (getRectangleHeightWidth p1 p2), (getShift ([p1] ++ [p2])))
 
 -- Normal pattern matching from customer Shape information to Picture
 shapeToPic :: Shape -> Picture
