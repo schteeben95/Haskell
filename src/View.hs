@@ -50,16 +50,16 @@ getNewGraphic :: State -> Maybe Point -> Maybe Graphic
 getNewGraphic = undefined -- TODO
 
 getRectangleGraphic :: Point -> Point -> ColourName -> Graphic
-getRectangleGraphic p1 p2 cn = Graphic (Rectangle (fst (getRectangleHeightWidth p1 p2)) (snd (getRectangleHeightWidth p1 p2))) cn (getRectangleShift p1 p2)
+getRectangleGraphic p1 p2 cn = Graphic (Rectangle (fst (getRectangleHeightWidth p1 p2)) (snd (getRectangleHeightWidth p1 p2))) cn (getShift ([p1] ++ [p2]))
 
 getEllipseGraphic :: Point -> Point -> ColourName -> Graphic
-getEllipseGraphic p1 p2 cn = Graphic (Ellipse (fst (getRectangleHeightWidth p1 p2)) (snd (getRectangleHeightWidth p1 p2))) cn (getRectangleShift p1 p2)
+getEllipseGraphic p1 p2 cn = Graphic (Ellipse (fst (getRectangleHeightWidth p1 p2)) (snd (getRectangleHeightWidth p1 p2))) cn (getShift ([p1] ++ [p2]))
 
 getLineGraphic :: Point -> Point -> ColourName -> Graphic
-getLineGraphic p1 p2 cn = Graphic (Line p1 p2) cn p1
+getLineGraphic p1 p2 cn = Graphic (Line p1 p2) cn (getShift ([p1] ++ [p2]))
 
 getPolygonGraphic :: [Point] -> ColourName -> Graphic
-getPolygonGraphic ps cn = Graphic (Polygon ps) cn (getPolygonShift ps)
+getPolygonGraphic ps cn = Graphic (Polygon ps) cn (getShift ps)
 
 getWidthHeightShift :: Point -> Point -> (Side, Side, Point)
 getWidthHeightShift p1 p2 = (fst (getRectangleHeightWidth p1 p2), snd (getRectangleHeightWidth p1 p2), (getRectangleShift p1 p2))
@@ -79,11 +79,7 @@ graphicToPic (Graphic shape cn ps) = translated (fst ps) (snd ps) (coloured (col
 
 -- get leftTop and rightBottom points to get width and height
 getRectangleHeightWidth :: Point -> Point -> (Double, Double) 
-getRectangleHeightWidth p1 p2 = ((abs ((snd p1) - (snd p2))), (abs ((fst p1) - (fst p2))))
-
--- get leftTop and rightBottom points to get width and height
-getRectangleShift :: Point -> Point -> (Double, Double) 
-getRectangleShift p1 p2 = (((snd p1) + (snd p2))/2, ((fst p1) + (fst p2))/2)
+getRectangleHeightWidth p1 p2 = ((abs ((fst p1) - (fst p2))), (abs ((snd p1) - (snd p2))))
 
 -- we may add a if else to swap the start and end point
 getEllipsePoints :: Double -> Double -> [Point]
@@ -100,8 +96,8 @@ getEllipsePoint w h cur flag = if flag
                                then (cur, sqrt ((w**2) * (h**2) - (h**2) * (cur ** 2)) / w)
                                else (cur, -(sqrt ((w**2) * (h**2) - (h**2) * (cur ** 2)) / w))
 
-getPolygonShift :: [Point] -> Point
-getPolygonShift ps = (((sum (map fst ps)) / ((getLength ps) * 1.0)), ((sum (map snd ps)) / ((getLength ps) * 1.0)))
+getShift :: [Point] -> Point
+getShift ps = (((sum (map fst ps)) / ((getLength ps) * 1.0)), ((sum (map snd ps)) / ((getLength ps) * 1.0)))
 
 getLength :: [Point] -> Double
 getLength [] = 0.0
