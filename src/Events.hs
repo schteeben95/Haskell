@@ -134,7 +134,7 @@ handleEvent e s =
     KeyPress key
       | key == "Esc"         -> initialState
       | key == "D"           -> trace (show s) s
-      | key == "H"           -> trace (show "Hello World") s
+      | key == "Backspace"   -> emptyGraphics s
       | inMap toolKeyMap (unpack key) -> changeTool s (getValue toolKeyMap (unpack key))
       | inMap colourKeyMap (unpack key) -> changeColorName s (getValue colourKeyMap (unpack key))
     MousePress _ point  -> drawNewGraphic s (Just point)

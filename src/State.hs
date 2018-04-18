@@ -22,7 +22,10 @@ initialState :: State
 initialState = World [] initialTool initialColour
 
 changeTool :: State -> Tool -> State
-changeTool (World gs oldTool cn) newTool = World gs newTool cn
+changeTool (World gs _ cn) tool = World gs tool cn
 
 changeColorName :: State -> ColourName -> State
-changeColorName (World gs tool oldColorName) newColourName = World gs tool newColourName
+changeColorName (World gs tool _) cn = World gs tool cn
+
+emptyGraphics :: State -> State
+emptyGraphics (World _ tool cn) = World [] tool cn
