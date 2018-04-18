@@ -56,19 +56,19 @@ getEllipseGraphic :: Point -> Point -> ColourName -> Graphic
 getEllipseGraphic p1 p2 cn = Graphic (Ellipse (fst (getRectangleHeightWidth p1 p2)) (snd (getRectangleHeightWidth p1 p2))) cn (getShift ([p1] ++ [p2]))
 
 getLineGraphic :: Point -> Point -> ColourName -> Graphic
-getLineGraphic p1 p2 cn = Graphic (Line p1 p2) cn (getShift ([p1] ++ [p2]))
+getLineGraphic p1 p2 cn = Graphic (Line p1 p2) cn (0, 0)
 
 getPolygonGraphic :: [Point] -> ColourName -> Graphic
 getPolygonGraphic ps cn = Graphic (Polygon ps) cn (getShift ps)
 
 getWidthHeightShift :: Point -> Point -> (Side, Side, Point)
-getWidthHeightShift p1 p2 = (fst (getRectangleHeightWidth p1 p2), snd (getRectangleHeightWidth p1 p2), (getShift ([p1] ++ [p2])))
+getWidthHeightShift p1 p2 = (fst (getRectangleHeightWidth p1 p2), snd (getRectangleHeightWidth p1 p2), (getShift [p1, p2]))
 
 -- Normal pattern matching from customer Shape information to Picture
 shapeToPic :: Shape -> Picture
-shapeToPic (Rectangle w h) = rectangle w h
-shapeToPic (Ellipse w h) = polygon (getEllipsePoints w h)
-shapeToPic (Polygon ps) = polygon ps
+shapeToPic (Rectangle w h) = solidRectangle w h
+shapeToPic (Ellipse w h) = solidPolygon (getEllipsePoints w h)
+shapeToPic (Polygon ps) = solidPolygon ps
 shapeToPic (Line p1 p2) = polyline ([p1] ++ [p2]) -- pass test
 
 graphicsToPics :: [Graphic] -> [Picture]
