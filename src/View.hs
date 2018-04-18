@@ -49,6 +49,10 @@ drawNewGraphic (World gs (LineTool (Just op)) cn) (Just np) = World (gs ++ [getL
 getNewGraphic :: State -> Maybe Point -> Maybe Graphic
 getNewGraphic = undefined -- TODO
 
+drawPolygon :: State -> State
+drawPolygon (World gs (PolygonTool ps) cn) =  World (gs ++ [getPolygonGraphic ps cn]) (PolygonTool []) cn
+drawPolygon s = s
+
 getRectangleGraphic :: Point -> Point -> ColourName -> Graphic
 getRectangleGraphic p1 p2 cn = Graphic (Rectangle (fst (getRectangleHeightWidth p1 p2)) (snd (getRectangleHeightWidth p1 p2))) cn (getShift ([p1] ++ [p2]))
 
