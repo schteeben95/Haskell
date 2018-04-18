@@ -75,7 +75,7 @@ graphicsToPics :: [Graphic] -> [Picture]
 graphicsToPics = map graphicToPic
 
 graphicToPic :: Graphic -> Picture
-graphicToPic (Graphic shape cn ps) = translated (fst ps) (snd ps) (coloured (colourNameToColour cn) (shapeToPic shape))
+graphicToPic (Graphic shape cn (x, y)) = translated x y (coloured (colourNameToColour cn) (shapeToPic shape))
 
 -- get leftTop and rightBottom points to get width and height
 getRectangleHeightWidth :: Point -> Point -> (Double, Double) 
