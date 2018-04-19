@@ -63,7 +63,7 @@ getLineGraphic :: Point -> Point -> ColourName -> Graphic
 getLineGraphic p1 p2 cn = Graphic (Line p1 p2) cn (0, 0)
 
 getPolygonGraphic :: [Point] -> ColourName -> Graphic
-getPolygonGraphic ps cn = Graphic (Polygon ps) cn (getShift ps)
+getPolygonGraphic ps cn = Graphic (Polygon ps) cn (0, 0)
 
 getWidthHeightShift :: Point -> Point -> (Side, Side, Point)
 getWidthHeightShift p1 p2 = (fst (getRectangleHeightWidth p1 p2), snd (getRectangleHeightWidth p1 p2), (getShift [p1, p2]))
